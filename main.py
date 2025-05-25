@@ -28,6 +28,7 @@ def index():
 def serve_css():
     return send_from_directory('.', 'style.css')
 
+# Get data for a specific profile
 @app.route('/api/data/<profile>', methods=['GET'])
 def get_profile_data(profile):
     data = load_data()
@@ -40,13 +41,20 @@ def get_profile_data(profile):
     })
     return jsonify(profile_data)
 
+# Save data for a specific profile
 @app.route('/api/data/<profile>', methods=['POST'])
 def save_profile_data(profile):
-    data = load_data()
     profile_data = request.json
+    data = load_data()
     data[profile] = profile_data
     save_data(data)
     return jsonify({"status": "success", "message": f"Data saved for {profile}"}), 200
 
+# Serve other assets like JS if needed
+@app.route('/<path:path>')
+def serve_static_file(path):
+    return send_from_directory('.', path)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
