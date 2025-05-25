@@ -4,12 +4,6 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return "Mission Prep is live!"
-
-if __name__ == "__main__":
-    app.run()
 DATA_FILE = 'data.json'
 
 # Load data from file or initialize empty structure
@@ -29,7 +23,7 @@ def save_data(data):
 
 @app.route('/')
 def index():
-    return render_template('index1.html')  # changed here
+    return render_template('index1.html')  # Render your main frontend page
 
 @app.route('/api/data/<profile>', methods=['GET'])
 def get_profile_data(profile):
@@ -55,5 +49,6 @@ def save_profile_data(profile):
     return jsonify({"status": "success", "message": f"Data saved for {profile}"}), 200
 
 if __name__ == '__main__':
-app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
+
 
