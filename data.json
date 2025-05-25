@@ -1,0 +1,80 @@
+{
+  "Jewel": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [
+      {"topic": "Microeconomics", "date": "2025-06-10", "color": "#f44336"},
+      {"topic": "Macroeconomics", "date": "2025-06-15", "color": "#2196f3"}
+    ],
+    "cycle_learning": [
+      {"topic": "5 hours", "date": "2025-06-12"},
+      {"topic": "3 hours", "date": "2025-06-18"}
+    ],
+    "purchase_list": [
+      {"name": "Notebook", "done": false},
+      {"name": "Pen", "done": true}
+    ],
+    "packing_list": [
+      {"name": "Laptop charger", "done": false},
+      {"name": "Clothes", "done": true}
+    ],
+    "registration_docs": [
+      {"filename": "admission_form.pdf", "status": "Not Yet Filled"},
+      {"filename": "id_proof.pdf", "status": "Taken Print"}
+    ]
+  },
+  "Emil": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [
+      {"topic": "Statistics", "date": "2025-06-20", "color": "#4caf50"},
+      {"topic": "Data Science", "date": "2025-06-25", "color": "#ff9800"}
+    ],
+    "cycle_learning": [
+      {"topic": "4 hours", "date": "2025-06-22"},
+      {"topic": "2 hours", "date": "2025-06-28"}
+    ],
+    "purchase_list": [
+      {"name": "Calculator", "done": false},
+      {"name": "Backpack", "done": false}
+    ],
+    "packing_list": [
+      {"name": "Textbooks", "done": false},
+      {"name": "Jacket", "done": false}
+    ],
+    "registration_docs": [
+      {"filename": "fee_receipt.pdf", "status": "Filled"},
+      {"filename": "photo.pdf", "status": "Fully Done"}
+    ]
+  },
+  "Amal": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [],
+    "cycle_learning": [],
+    "purchase_list": [],
+    "packing_list": [],
+    "registration_docs": []
+  },
+  "Anju": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [],
+    "cycle_learning": [],
+    "purchase_list": [],
+    "packing_list": [],
+    "registration_docs": []
+  },
+  "Papa": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [],
+    "cycle_learning": [],
+    "purchase_list": [],
+    "packing_list": [],
+    "registration_docs": []
+  },
+  "Mummy": {
+    "countdown": "2025-07-31T00:00:00Z",
+    "syllabus": [],
+    "cycle_learning": [],
+    "purchase_list": [],
+    "packing_list": [],
+    "registration_docs": []
+  }
+}

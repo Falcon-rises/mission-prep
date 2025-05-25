@@ -1,0 +1,278 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: #3f3cbb;
+  padding: 1rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #111;
+}
+
+.profile-buttons {
+  margin-top: 0.5rem;
+}
+
+.profile-btn {
+  background: #5654d4;
+  border: none;
+  margin: 0 5px;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #e1e1ff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.profile-btn:hover {
+  background: #a16eff;
+  color: white;
+  box-shadow: 0 3px 10px #b19aff;
+}
+
+.profile-btn.selected {
+  background: #f4a261;
+  color: #3b2f2f;
+  box-shadow: 0 0 15px #f4a261;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2, h3 {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.countdown {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ffeb3b;
+  text-shadow: 1px 1px 5px #ffb300;
+}
+
+.progress {
+  background: #333;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 25px;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.3);
+}
+
+.progress-bar {
+  height: 100%;
+  background: #f4a261;
+  width: 0%;
+  text-align: center;
+  color: #3b2f2f;
+  font-weight: 700;
+  line-height: 25px;
+  transition: width 0.5s ease-in-out;
+  box-shadow: 0 0 10px #f4a261;
+}
+
+.lists-section {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.list-container {
+  background: rgba(255,255,255,0.1);
+  flex: 1 1 45%;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.list-container h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #ffb347;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+input[type="text"], input[type="file"] {
+  width: 75%;
+  padding: 8px 12px;
+  border-radius: 30px;
+  border: none;
+  margin-right: 10px;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: none;
+  background: #6a11cb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(106,17,203,0.6);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #8e2de2;
+  box-shadow: 0 6px 15px rgba(142,45,226,0.8);
+}
+
+.item-list {
+  list-style: none;
+  padding-left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 1rem;
+  color: #ffeaa7;
+  font-weight: 600;
+}
+
+.item-list li {
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.item-list li:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.reg-doc {
+  background: rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffeaa7;
+}
+
+.reg-doc select {
+  border-radius: 20px;
+  border: none;
+  padding: 5px 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(255,255,255,0.3);
+  background: #6a11cb;
+  color: white;
+  outline: none;
+}
+
+.btn-delete {
+  background: #dc3545;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-weight: 700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 8px #dc3545;
+  margin-left: 10px;
+}
+
+.btn-delete:hover {
+  background: #b02a37;
+  box-shadow: 0 0 12px #b02a37;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #3f3cbb;
+  box-shadow: inset 0 1px 4px rgba(255,255,255,0.15);
+  color: #dcdcdc;
+  font-weight: 600;
+}
+
+/* --- New additions --- */
+
+/* Calendar input popup style */
+input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+  margin-right: 10px;
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
+/* Color-coded syllabus item badges inside lists */
+.syllabus-item {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  cursor: default;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  color: #fff;
+}
+
+/* Progress percentage text inside progress bar */
+.progress-bar span {
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+/* File upload input with custom styles */
+input[type="file"] {
+  cursor: pointer;
+  background: #6a11cb;
+  color: white;
+  padding: 6px 12px;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(106,17,203,0.6);
+  transition: background 0.3s ease;
+}
+
+input[type="file"]:hover {
+  background: #8e2de2;
+  box-shadow: 0 6px 15px rgba(142,45,226,0.8);
+}

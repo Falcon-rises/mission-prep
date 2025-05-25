@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IIT Jodhpur Planner</title>
+<style>
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white; min-height: 100vh; display: flex; flex-direction: column;
+  }
+  header {
+    background: #3f3cbb; padding: 1rem 2rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  header h1 { margin: 0; font-weight: 700; font-size: 2rem; letter-spacing: 1px; text-shadow: 1px 1px 2px #111; }
+  .profile-buttons {
+    margin-top: 0.5rem;
+  }
+  .profile-btn {
+    background: #5654d4; border: none; margin: 0 5px; padding: 8px 15px;
+    border-radius: 30px; font-weight: 600; cursor: pointer; color: #e1e1ff;
+    transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  .profile-btn:hover { background: #a16eff; color: white; box-shadow: 0 3px 10px #b19aff; }
+  .profile-btn.selected {
+    background: #f4a261; color: #3b2f2f; box-shadow: 0 0 15px #f4a261;
+  }
+  main {
+    flex: 1; padding: 2rem; max-width: 900px; margin: 0 auto;
+  }
+  .countdown {
+    font-size: 2rem; font-weight: 700; text-align: center;
+    margin-bottom: 2rem; color: #ffeb3b; text-shadow: 1px 1px 5px #ffb300;
+  }
+  .progress {
+    background: #333; border-radius: 30px; overflow: hidden; height: 25px;
+    margin-bottom: 2rem; box-shadow: inset 0 1px 3px rgba(255,255,255,0.3);
+  }
+  .progress-bar {
+    height: 100%; background: #f4a261; width: 0%;
+    text-align: center; color: #3b2f2f; font-weight: 700;
+    line-height: 25px; transition: width 0.5s ease-in-out;
+    box-shadow: 0 0 10px #f4a261;
+  }
+  .lists-section {
+    display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .list-container {
+    background: rgba(255,255,255,0.1);
+    flex: 1 1 45%;
+    padding: 1rem 1.5rem; border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  }
+  .list-container h3 {
+    margin-top: 0; margin-bottom: 1rem; color: #ffb347;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  }
+  input[type="text"], input[type="number"], input[type="file"], select, input[type="date"] {
+    width: calc(100% - 100px); padding: 8px 12px;
+    border-radius: 30px; border: none; margin-right: 10px;
+    font-size: 1rem; outline: none;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    color: #111;
+  }
+  button {
+    padding: 8px 16px; border-radius: 30px; border: none;
+    background: #6a11cb; color: white; font-weight: 600;
+    cursor: pointer; box-shadow: 0 4px 10px rgba(106,17,203,0.6);
+    transition: all 0.3s ease;
+  }
+  button:hover {
+    background: #8e2de2; box-shadow: 0 6px 15px rgba(142,45,226,0.8);
+  }
+  ul.item-list {
+    list-style: none; padding-left: 0; max-height: 180px;
+    overflow-y: auto; margin-top: 1rem; color: #ffeaa7; font-weight: 600;
+  }
+  ul.item-list li {
+    padding: 5px 10px; border-radius: 15px; margin-bottom: 8px;
+    background: rgba(255,255,255,0.15); cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex; align-items: center;
+  }
+  ul.item-list li:hover {
+    background: rgba(255,255,255,0.3);
+  }
+  ul.item-list li.done {
+    text-decoration: line-through; opacity: 0.7;
+  }
+  /* Subject color dots */
+  .subject-dot {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    margin-right: 12px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .cycle-hours {
+    margin-left: auto;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #ffeaa7;
+  }
+  .reg-doc {
+    background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;
+    margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
+    color: #ffeaa7;
+  }
+  .reg-doc select {
+    border-radius: 20px; border: none; padding: 5px 10px;
+    font-weight: 600; cursor: pointer;
+    box-shadow: 0 0 5px rgba(255,255,255,0.3);
+    background: #6a11cb; color: white; outline: none;
+  }
+  .btn-delete {
+    background: #dc3545; padding: 5px 10px; border-radius: 30px;
+    font-weight: 700; color: white; border: none; cursor: pointer;
+    box-shadow: 0 0 8px #dc3545; margin-left: 10px;
+  }
+  .btn-delete:hover {
+    background: #b02a37; box-shadow: 0 0 12px #b02a37;
+  }
+  footer {
+    text-align: center; padding: 1rem;
+    background: #3f3cbb; box-shadow: inset 0 1px 4px rgba(255,255,255,0.15);
+    color: #dcdcdc; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IIT Jodhpur Planner</h1>
+  <div class="profile-buttons" id="profileButtons">
+    <button class="profile-btn selected" data-profile="Jewel">Jewel</button>
+    <button class="profile-btn" data-profile="Emil">Emil</button>
+    <button class="profile-btn" data-profile="Amal">Amal</button>
+    <button class="profile-btn" data-profile="Anju">Anju</button>
+    <button class="profile-btn" data-profile="Papa">Papa</button>
+    <button class="profile-btn" data-profile="Mummy">Mummy</button>
+  </div>
+</header>
+
+<main>
+  <!-- Countdown -->
+  <div class="countdown" id="countdown">
+    Countdown: 0d 0h 0m 0s
+  </div>
+
+  <!-- Syllabus Tracker -->
+  <section class="list-container" id="syllabusSection">
+    <h3>Syllabus Tracker</h3>
+    <div style="display:flex; margin-bottom: 1rem;">
+      <input type="text" id="syllabusSubjectInput" placeholder="Enter subject" />
+      <input type="date" id="syllabusDateInput" />
+      <button id="addSyllabusBtn">Add</button>
+    </div>
+    <div class="progress">
+      <div class="progress-bar" id="syllabusProgressBar">0%</div>
+    </div>
+    <ul class="item-list" id="syllabusList">
+      <!-- Syllabus items appear here -->
+    </ul>
+  </section>
+
+  <!-- Cycle Learning Tracker -->
+  <section class="list-container" id="cycleSection">
+    <h3>Cycle Learning Tracker</h3>
+    <div style="display:flex; margin-bottom: 1rem;">
+      <input type="number" id="cycleHoursInput" min="0" placeholder="Hours spent" />
+      <input type="date" id="cycleDateInput" />
+      <button id="addCycleBtn">Add</button>
+    </div>
+    <div class="progress">
+      <div class="progress-bar" id="cycleProgressBar">0%</div>
+    </div>
+    <ul class="item-list" id="cycleList">
+      <!-- Cycle items appear here -->
+    </ul>
+  </section>
+
+  <div class="lists-section">
+    <!-- Purchase List -->
+    <section class="list-container" id="purchaseSection">
+      <h3>Purchase List</h3>
+      <div style="display:flex;">
+        <input type="text" id="purchaseInput" placeholder="Add purchase item" />
+        <button id="addPurchaseBtn">Add</button>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="purchaseProgressBar">0%</div>
+      </div>
+      <ul class="item-list" id="purchaseList">
+        <!-- Purchase items here -->
+      </ul>
+    </section>
+
+    <!-- Packing List -->
+    <section class="list-container" id="packingSection">
+      <h3>Packing List</h3>
+      <div style="display:flex;">
+        <input type="text" id="packingInput" placeholder="Add packing item" />
+        <button id="addPackingBtn">Add</button>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="packingProgressBar">0%</div>
+      </div>
+      <ul class="item-list" id="packingList">
+        <!-- Packing items here -->
+      </ul>
+    </section>
+  </div>
+
+  <!-- Registration Section -->
+  <section class="list-container" id="registrationSection">
+    <h3>Registration Document Upload & Status</h3>
+    <div id="registrationDocs">
+      <!-- Dynamically created docs with file input and status dropdown -->
+    </div>
+  </section>
+</main>
+
+<footer>
+  IIT Jodhpur Planner &copy; 2025
+</footer>
+
+<script>
+  // Data storage (in-memory only for now)
+  const data = {
+    profile: 'Jewel',
+    syllabus: [],
+    cycle: [],
+    purchase: [],
+    packing: [],
+    registration: []
+  };
+
+  // Profile buttons and switching
+  const profileButtons = document.querySelectorAll('.profile-btn');
+  profileButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      profileButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      data.profile = btn.dataset.profile;
+      // For now, data is global - profile switch does not change stored data.
+      // You can extend here for profile-specific data.
+      // Maybe clear inputs or reload data here.
+      alert(`Switched to profile: ${data.profile}\nNote: Profile-specific data feature not implemented yet.`);
+    });
+  });
+
+  // Utilities: colors for syllabus subjects
+  const subjectColors = [
+    '#e63946', '#f1faee', '#a8dadc', '#457b9d', '#ffb703', '#fb8500',
+    '#6a4c93', '#1982c4', '#8ac926', '#ff595e', '#1982c4', '#ffca3a'
+  ];
+  function getRandomColor() {
+    return subjectColors[Math.floor(Math.random() * subjectColors.length)];
+  }
+
+  // SYLLABUS ADD ITEM
+  const syllabusList = document.getElementById('syllabusList');
+  const syllabusProgressBar = document.getElementById('syllabusProgressBar');
+  const syllabusSubjectInput = document.getElementById('syllabusSubjectInput');
+  const syllabusDateInput = document.getElementById('syllabusDateInput');
+  const addSyllabusBtn = document.getElementById('addSyllabusBtn');
+
+  addSyllabusBtn.addEventListener('click', () => {
+    const subject = syllabusSubjectInput.value.trim();
+    const date = syllabusDateInput.value;
+
+    if (!subject) {
+      alert('Please enter a subject for syllabus.');
+      return;
+    }
+    if (!date) {
+      alert('Please select a date for syllabus.');
+      return;
+    }
+    // Assign random color dot
+    const color = getRandomColor();
+
+    // Add item to data array
+    data.syllabus.push({ subject, date, color, done: false });
+
+    // Clear inputs
+    syllabusSubjectInput.value = '';
+    syllabusDateInput.value = '';
+
+    renderSyllabus();
+  });
+
+  function renderSyllabus() {
+    syllabusList.innerHTML = '';
+    let doneCount = 0;
+    data.syllabus.forEach((item, i) => {
+      const li = document.createElement('li');
+      // Subject color dot
+      const dot = document.createElement('span');
+      dot.className = 'subject-dot';
+      dot.style.backgroundColor = item.color;
+      li.appendChild(dot);
+      // Subject and date text
+      li.appendChild(document.createTextNode(`${item.subject} (Due: ${item.date})`));
+      if (item.done) {
+        li.classList.add('done');
+        doneCount++;
+      }
+      // Click toggles done status
+      li.addEventListener('click', () => {
+        data.syllabus[i].done = !data.syllabus[i].done;
+        renderSyllabus();
+        updateSyllabusProgress();
+      });
+      syllabusList.appendChild(li);
+    });
+    updateSyllabusProgress();
+  }
+
+  function updateSyllabusProgress() {
+    const total = data.syllabus.length;
+    if (total === 0) {
+      syllabusProgressBar.style.width = '0%';
+      syllabusProgressBar.textContent = '0%';
+      return;
+    }
+    const done = data.syllabus.filter(i => i.done).length;
+    const percent = Math.round((done / total) * 100);
+    syllabusProgressBar.style.width = percent + '%';
+    syllabusProgressBar.textContent = `${percent}%`;
+  }
+
+
+  // CYCLE LEARNING ADD ITEM
+  const cycleList = document.getElementById('cycleList');
+  const cycleProgressBar = document.getElementById('cycleProgressBar');
+  const cycleHoursInput = document.getElementById('cycleHoursInput');
+  const cycleDateInput = document.getElementById('cycleDateInput');
+  const addCycleBtn = document.getElementById('addCycleBtn');
+
+  addCycleBtn.addEventListener('click', () => {
+    const hours = parseInt(cycleHoursInput.value);
+    const date = cycleDateInput.value;
+
+    if (isNaN(hours) || hours <= 0) {
+      alert('Please enter a valid positive number of hours for cycle.');
+      return;
+    }
+    if (!date) {
+      alert('Please select a date for cycle.');
+      return;
+    }
+    data.cycle.push({ hours, date, done: false });
+
+    cycleHoursInput.value = '';
+    cycleDateInput.value = '';
+
+    renderCycle();
+  });
+
+  function renderCycle() {
+    cycleList.innerHTML = '';
+    let doneCount = 0;
+    data.cycle.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.textContent = item.date;
+      // Show hours on right side
+      const spanHours = document.createElement('span');
+      spanHours.className = 'cycle-hours';
+      spanHours.textContent = item.hours + ' hrs';
+      li.appendChild(spanHours);
+
+      if (item.done) {
+        li.classList.add('done');
+        doneCount++;
+      }
+
+      // Toggle done on click
+      li.addEventListener('click', () => {
+        data.cycle[i].done = !data.cycle[i].done;
+        renderCycle();
+        updateCycleProgress();
+      });
+
+      cycleList.appendChild(li);
+    });
+    updateCycleProgress();
+  }
+
+  function updateCycleProgress() {
+    const total = data.cycle.length;
+    if (total === 0) {
+      cycleProgressBar.style.width = '0%';
+      cycleProgressBar.textContent = '0%';
+      return;
+    }
+    const done = data.cycle.filter(i => i.done).length;
+    const percent = Math.round((done / total) * 100);
+    cycleProgressBar.style.width = percent + '%';
+    cycleProgressBar.textContent = `${percent}%`;
+  }
+
+
+  // PURCHASE LIST ADD ITEM
+  const purchaseList = document.getElementById('purchaseList');
+  const purchaseProgressBar = document.getElementById('purchaseProgressBar');
+  const purchaseInput = document.getElementById('purchaseInput');
+  const addPurchaseBtn = document.getElementById('addPurchaseBtn');
+
+  addPurchaseBtn.addEventListener('click', () => {
+    const item = purchaseInput.value.trim();
+    if (!item) {
+      alert('Please enter an item to purchase.');
+      return;
+    }
+    data.purchase.push({ item, done: false });
+    purchaseInput.value = '';
+    renderPurchase();
+  });
+
+  function renderPurchase() {
+    purchaseList.innerHTML = '';
+    data.purchase.forEach((itemObj, i) => {
+      const li = document.createElement('li');
+      li.textContent = itemObj.item;
+      if (itemObj.done) li.classList.add('done');
+      li.addEventListener('click', () => {
+        data.purchase[i].done = !data.purchase[i].done;
+        renderPurchase();
+        updatePurchaseProgress();
+      });
+      purchaseList.appendChild(li);
+    });
+    updatePurchaseProgress();
+  }
+
+  function updatePurchaseProgress() {
+    const total = data.purchase.length;
+    if (total === 0) {
+      purchaseProgressBar.style.width = '0%';
+      purchaseProgressBar.textContent = '0%';
+      return;
+    }
+    const done = data.purchase.filter(i => i.done).length;
+    const percent = Math.round((done / total) * 100);
+    purchaseProgressBar.style.width = percent + '%';
+    purchaseProgressBar.textContent = `${percent}%`;
+  }
+
+
+  // PACKING LIST ADD ITEM
+  const packingList = document.getElementById('packingList');
+  const packingProgressBar = document.getElementById('packingProgressBar');
+  const packingInput = document.getElementById('addPackingBtn') ? document.getElementById('packingInput') : null;
+  const addPackingBtn = document.getElementById('addPackingBtn');
+
+  addPackingBtn.addEventListener('click', () => {
+    const item = packingInput.value.trim();
+    if (!item) {
+      alert('Please enter an item to pack.');
+      return;
+    }
+    data.packing.push({ item, done: false });
+    packingInput.value = '';
+    renderPacking();
+  });
+
+  function renderPacking() {
+    packingList.innerHTML = '';
+    data.packing.forEach((itemObj, i) => {
+      const li = document.createElement('li');
+      li.textContent = itemObj.item;
+      if (itemObj.done) li.classList.add('done');
+      li.addEventListener('click', () => {
+        data.packing[i].done = !data.packing[i].done;
+        renderPacking();
+        updatePackingProgress();
+      });
+      packingList.appendChild(li);
+    });
+    updatePackingProgress();
+  }
+
+  function updatePackingProgress() {
+    const total = data.packing.length;
+    if (total === 0) {
+      packingProgressBar.style.width = '0%';
+      packingProgressBar.textContent = '0%';
+      return;
+    }
+    const done = data.packing.filter(i => i.done).length;
+    const percent = Math.round((done / total) * 100);
+    packingProgressBar.style.width = percent + '%';
+    packingProgressBar.textContent = `${percent}%`;
+  }
+
+
+  // REGISTRATION DOCS SETUP
+  const registrationDocsContainer = document.getElementById('registrationDocs');
+  const registrationDocs = [
+    'Charracter Certificate',
+    'Undertaking Form',
+    'Self Decleration Form',
+    'Annexure Undertaking',
+    'Declaration by Student',
+    'Medical Certificate ',
+    'Degree Marksheet',
+    'Marksheet of 10th and 12th'
+  ];
+
+  function createRegistrationDocs() {
+    registrationDocsContainer.innerHTML = '';
+    registrationDocs.forEach((doc, index) => {
+      const div = document.createElement('div');
+      div.className = 'reg-doc';
+
+      const label = document.createElement('label');
+      label.textContent = doc;
+      label.style.flex = '1';
+
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.id = `fileInput${index}`;
+      fileInput.accept = '.pdf,image/*';
+
+      const statusSelect = document.createElement('select');
+      statusSelect.id = `statusSelect${index}`;
+      ['Not Filled', 'Taken Print', 'Filled', 'Fully Done'].forEach(status => {
+        const option = document.createElement('option');
+        option.value = status.toLowerCase().replace(' ', '_');
+        option.textContent = status;
+        statusSelect.appendChild(option);
+      });
+
+      div.appendChild(label);
+      div.appendChild(fileInput);
+      div.appendChild(statusSelect);
+
+      registrationDocsContainer.appendChild(div);
+    });
+  }
+
+  createRegistrationDocs();
+
+  // COUNTDOWN LOGIC
+  const countdownElement = document.getElementById('countdown');
+  // For demo: target date is fixed to 1 Sep 2025
+  const targetDate = new Date('2025-07-31T00:00:00');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+    if (diff <= 0) {
+      countdownElement.textContent = "Countdown: Time's up!";
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownElement.textContent = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
