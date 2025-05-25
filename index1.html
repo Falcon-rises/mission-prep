@@ -566,6 +566,26 @@
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
+
+  // On page load, fetch saved data for the current profile
+fetch('/api/data/Jewel')
+  .then(res => res.json())
+  .then(data => {
+    // fill your registration form selects and inputs from data here
+  });
+
+// Function to save data back to backend
+function saveProfileData(profile, data) {
+  fetch(`/api/data/${profile}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(response => {
+    console.log('Saved:', response.message);
+  });
+}
 </script>
 
 </body>
